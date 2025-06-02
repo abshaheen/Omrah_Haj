@@ -108,8 +108,7 @@
             padding: 2rem; /* More padding */
             margin-bottom: 2.5rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            /* Initially hidden */
-            display: none;
+            /* Initially hidden via JS, but also ensure it's block when shown */
         }
         .toc h2 {
             border-bottom: 2px solid #e0e0e0;
@@ -247,7 +246,7 @@
 
         <button id="toggle-toc-btn">إظهار الفهرس</button>
 
-        <div id="toc-container" class="toc">
+        <div id="toc-container" class="toc" style="display: none;">
             <h2 class="text-center">فهرس المحتويات</h2>
             <ul>
                 <li><a href="#supplications-summary">ملخص الأدعية والسنن</a></li>
@@ -687,15 +686,16 @@
             const tocContainer = document.getElementById('toc-container');
 
             // Set initial state of TOC to hidden and button text
-            tocContainer.classList.add('hidden');
+            // Removed classList.add('hidden') here as it's now handled by inline style
             toggleBtn.textContent = 'إظهار الفهرس';
 
             toggleBtn.addEventListener('click', function() {
-                tocContainer.classList.toggle('hidden');
-                if (tocContainer.classList.contains('hidden')) {
-                    toggleBtn.textContent = 'إظهار الفهرس';
-                } else {
+                if (tocContainer.style.display === 'none') {
+                    tocContainer.style.display = 'block'; // Show the TOC
                     toggleBtn.textContent = 'إخفاء الفهرس';
+                } else {
+                    tocContainer.style.display = 'none'; // Hide the TOC
+                    toggleBtn.textContent = 'إظهار الفهرس';
                 }
             });
         });
