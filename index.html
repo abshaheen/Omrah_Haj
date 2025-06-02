@@ -101,50 +101,6 @@
             color: #1a237e;
             margin-bottom: 0;
         }
-        .toc {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 1.25rem; /* More rounded */
-            padding: 2rem; /* More padding */
-            margin-bottom: 2.5rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            /* Initially hidden via JS, but also ensure it's block when shown */
-        }
-        .toc h2 {
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 0.75rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem; /* Slightly larger */
-            color: #1976d2;
-        }
-        .toc ul {
-            list-style-type: none;
-            padding-right: 0;
-        }
-        .toc li a {
-            display: block;
-            padding: 0.6rem 0;
-            color: #424242; /* Darker gray */
-            text-decoration: none;
-            transition: color 0.3s ease-in-out, transform 0.2s ease-out;
-            font-size: 1.05rem;
-        }
-        .toc li a:hover {
-            color: #2196f3; /* Lighter blue on hover */
-            transform: translateX(5px); /* Slight slide effect */
-        }
-        .toc li ul {
-            padding-right: 1.5rem; /* More nested padding */
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .toc li ul li a {
-            font-size: 0.95rem; /* Slightly larger */
-            color: #616161; /* Medium gray */
-        }
-        .toc li ul li a:hover {
-            color: #42a5f5; /* Lighter blue on hover */
-        }
         .supplication-summary {
             background-color: #e8f5e9; /* Light green for supplication summary */
             border-right: 5px solid #4caf50; /* Green border */
@@ -176,34 +132,55 @@
             color: #1976d2; /* Blue for strong text */
         }
 
-        /* Toggle Button Styling */
-        #toggle-toc-btn {
-            position: fixed;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #0d47a1; /* Dark blue */
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 9999px; /* Fully rounded */
-            font-size: 1.125rem;
+        /* Dropdown Menu Styling */
+        .dropdown-container {
+            margin-bottom: 2.5rem;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1.25rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .dropdown-container label {
+            font-size: 1.25rem;
             font-weight: 600;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            color: #0d47a1;
+        }
+        .dropdown-container select {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.75rem 1rem;
+            border: 2px solid #90caf9;
+            border-radius: 0.75rem;
+            background-color: #e3f2fd;
+            font-size: 1.125rem;
+            color: #1a237e;
+            appearance: none; /* Remove default arrow */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%20viewBox%3D%220%200%20292.4%20292.4%22%3E%3Cpath%20fill%3D%22%231976d2%22%20d%3D%22M287%20197.979l-116.6-116.6c-4.7-4.7-12.3-4.7-17%200l-116.6%20116.6c-4.7%204.7-4.7%2012.3%200%2017l17%2017c4.7%204.7%2012.3%204.7%2017%200l79.6-79.6l79.6%2079.6c4.7%204.7%2012.3%204.7%2017%200l17-17c4.7-4.7%204.7-12.3%200-17z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: left 0.7rem top 50%;
+            background-size: 0.8rem auto;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            z-index: 1000; /* Ensure it's above other content */
-            border: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dropdown-container select:focus {
+            border-color: #2196f3;
             outline: none;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3);
         }
-
-        #toggle-toc-btn:hover {
-            background-color: #1565c0; /* Lighter blue on hover */
-            transform: translateX(-50%) translateY(-3px); /* Slight lift effect */
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+        .dropdown-container option {
+            background-color: #ffffff;
+            color: #343a40;
+            padding: 0.5rem;
         }
-        #toggle-toc-btn:active {
-            transform: translateX(-50%) translateY(0); /* Press effect */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        .dropdown-container option:disabled {
+            color: #9e9e9e;
         }
 
         /* Responsive adjustments */
@@ -229,13 +206,20 @@
             .container {
                 padding: 1.5rem;
             }
-            .toc, .deep-meaning, .supplication-summary, .section-heading {
+            .deep-meaning, .supplication-summary, .section-heading {
                 padding: 1.25rem;
                 margin-bottom: 1.5rem;
             }
-            #toggle-toc-btn {
+            .dropdown-container {
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .dropdown-container label {
+                font-size: 1.1rem;
+            }
+            .dropdown-container select {
                 font-size: 1rem;
-                padding: 0.8rem 1.5rem;
+                padding: 0.6rem 0.8rem;
             }
         }
     </style>
@@ -244,50 +228,40 @@
     <div class="container mx-auto">
         <h1 class="text-center">دلالات الحج والعمرة ووصايا الرسول صلى الله عليه وسلم</h1>
 
-        <button id="toggle-toc-btn">إظهار الفهرس</button>
-
-        <div id="toc-container" class="toc" style="display: none;">
-            <h2 class="text-center">فهرس المحتويات</h2>
-            <ul>
-                <li><a href="#supplications-summary">ملخص الأدعية والسنن</a></li>
-                <li><a href="#deep-meaning-purity">دلالة عميقة: التطهير الشامل والتجديد الروحي</a></li>
-                <li><a href="#deep-meaning-hajj-life-change">دلالة عميقة: الحج المبرور تحول في نمط الحياة</a></li>
-                <li><a href="#general-advice">وصايا عامة من الرسول صلى الله عليه وسلم للحجاج والمعتمرين</a>
-                    <ul>
-                        <li><a href="#prophetic-advice-comprehensive">وصايا نبوية شاملة</a></li>
-                        <li><a href="#deep-meaning-hajj-ethics">دلالة عميقة: الحج كنموذج أخلاقي مصغر</a></li>
-                    </ul>
-                </li>
-                <li><a href="#umrah-rituals">مناسك العمرة: خطوات مفصلة من السنة النبوية</a>
-                    <ul>
-                        <li><a href="#ihram-umrah">الإحرام للعمرة: السنن، الأدعية، والحكمة</a></li>
-                        <li><a href="#deep-meaning-ihram-equality">دلالة عميقة: الإحرام كبوابة للمساواة الوجودية والاستعداد للآخرة</a></li>
-                        <li><a href="#tawaf-haram">الطواف بالبيت الحرام: السنن، الأدعية، والحكمة</a></li>
-                        <li><a href="#deep-meaning-tawaf-unity">دلالة عميقة: الطواف كتجسيد للوحدة والذكر الإلهي</a></li>
-                        <li><a href="#sai-safa-marwah">السعي بين الصفا والمروة: السنن، الأدعية، والحكمة</a></li>
-                        <li><a href="#deep-meaning-sai-perseverance">دلالة عميقة: السعي كرمز للتوكل الفعال والمثابرة</a></li>
-                        <li><a href="#shaving-trimming">الحلق أو التقصير: أحكامه</a></li>
-                        <li><a href="#deep-meaning-release-renewal">دلالة عميقة: رمزية التحلل والتجديد من خلال شعائر الشعر</a></li>
-                    </ul>
-                </li>
-                <li><a href="#hajj-rituals">مناسك الحج: أنواعها وخطواتها يومًا بيوم من السنة النبوية</a>
-                    <ul>
-                        <li><a href="#types-of-hajj">أنواع الحج: التمتع، القِران، الإفراد</a></li>
-                        <li><a href="#deep-meaning-hajj-flexibility">دلالة عميقة: مرونة أنواع الحج تعكس الرحمة الإلهية والعملية</a></li>
-                        <li><a href="#day-of-tarwiyah">أعمال يوم التروية (8 ذي الحجة)</a></li>
-                        <li><a href="#deep-meaning-mina-preparation">دلالة عميقة: منى كمرحلة تحضيرية لعرفات</a></li>
-                        <li><a href="#day-of-arafat">أعمال يوم عرفة (9 ذي الحجة): الوقوف، الأدعية، والحكمة</a></li>
-                        <li><a href="#deep-meaning-arafat-spiritual">دلالة عميقة: عرفة كقمة للاتصال الروحي والرحمة الإلهية</a></li>
-                        <li><a href="#day-of-sacrifice">أعمال يوم النحر (10 ذي الحجة): رمي جمرة العقبة، الذبح، الحلق/التقصير</a></li>
-                        <li><a href="#deep-meaning-sacrifice-climax">دلالة عميقة: يوم النحر كذروة الخضوع والتحرر</a></li>
-                        <li><a href="#tawaf-ifadah">طواف الإفاضة (الزيارة)</a></li>
-                        <li><a href="#days-of-tashreeq">أعمال أيام التشريق (11-13 ذي الحجة): رمي الجمرات، المبيت</a></li>
-                        <li><a href="#deep-meaning-tashreeq-continuous">دلالة عميقة: أيام التشريق فترة ذكر وطاعة مستمرة</a></li>
-                        <li><a href="#farewell-tawaf">طواف الوداع</a></li>
-                        <li><a href="#deep-meaning-farewell-gratitude">دلالة عميقة: طواف الوداع كتتويج للشكر والارتباط الروحي</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="dropdown-container">
+            <label for="section-select">اختر القسم للتنقل السريع:</label>
+            <select id="section-select" onchange="window.location.hash = this.value;">
+                <option value="" disabled selected>-- اختر قسماً --</option>
+                <option value="supplications-summary">ملخص الأدعية والسنن</option>
+                <option value="deep-meaning-purity">دلالة عميقة: التطهير الشامل والتجديد الروحي</option>
+                <option value="deep-meaning-hajj-life-change">دلالة عميقة: الحج المبرور تحول في نمط الحياة</option>
+                <option value="general-advice">وصايا عامة من الرسول صلى الله عليه وسلم للحجاج والمعتمرين</option>
+                <option value="prophetic-advice-comprehensive">-- وصايا نبوية شاملة</option>
+                <option value="deep-meaning-hajj-ethics">-- دلالة عميقة: الحج كنموذج أخلاقي مصغر</option>
+                <option value="umrah-rituals">مناسك العمرة: خطوات مفصلة من السنة النبوية</option>
+                <option value="ihram-umrah">-- الإحرام للعمرة: السنن، الأدعية، والحكمة</option>
+                <option value="deep-meaning-ihram-equality">-- دلالة عميقة: الإحرام كبوابة للمساواة الوجودية والاستعداد للآخرة</option>
+                <option value="tawaf-haram">-- الطواف بالبيت الحرام: السنن، الأدعية، والحكمة</option>
+                <option value="deep-meaning-tawaf-unity">-- دلالة عميقة: الطواف كتجسيد للوحدة والذكر الإلهي</option>
+                <option value="sai-safa-marwah">-- السعي بين الصفا والمروة: السنن، الأدعية، والحكمة</option>
+                <option value="deep-meaning-sai-perseverance">-- دلالة عميقة: السعي كرمز للتوكل الفعال والمثابرة</option>
+                <option value="shaving-trimming">-- الحلق أو التقصير: أحكامه</option>
+                <option value="deep-meaning-release-renewal">-- دلالة عميقة: رمزية التحلل والتجديد من خلال شعائر الشعر</option>
+                <option value="hajj-rituals">مناسك الحج: أنواعها وخطواتها يومًا بيوم من السنة النبوية</option>
+                <option value="types-of-hajj">-- أنواع الحج: التمتع، القِران، الإفراد</option>
+                <option value="deep-meaning-hajj-flexibility">-- دلالة عميقة: مرونة أنواع الحج تعكس الرحمة الإلهية والعملية</option>
+                <option value="day-of-tarwiyah">-- أعمال يوم التروية (8 ذي الحجة)</option>
+                <option value="deep-meaning-mina-preparation">-- دلالة عميقة: منى كمرحلة تحضيرية لعرفات</option>
+                <option value="day-of-arafat">-- أعمال يوم عرفة (9 ذي الحجة): الوقوف، الأدعية، والحكمة</option>
+                <option value="deep-meaning-arafat-spiritual">-- دلالة عميقة: عرفة كقمة للاتصال الروحي والرحمة الإلهية</option>
+                <option value="day-of-sacrifice">-- أعمال يوم النحر (10 ذي الحجة): رمي جمرة العقبة، الذبح، الحلق/التقصير</option>
+                <option value="deep-meaning-sacrifice-climax">-- دلالة عميقة: يوم النحر كذروة الخضوع والتحرر</option>
+                <option value="tawaf-ifadah">-- طواف الإفاضة (الزيارة)</option>
+                <option value="days-of-tashreeq">-- أعمال أيام التشريق (11-13 ذي الحجة): رمي الجمرات، المبيت</option>
+                <option value="deep-meaning-tashreeq-continuous">-- دلالة عميقة: أيام التشريق فترة ذكر وطاعة مستمرة</option>
+                <option value="farewell-tawaf">-- طواف الوداع</option>
+                <option value="deep-meaning-farewell-gratitude">-- دلالة عميقة: طواف الوداع كتتويج للشكر والارتباط الروحي</option>
+            </select>
         </div>
 
         <div class="supplication-summary" id="supplications-summary">
@@ -679,26 +653,5 @@
         </div>
 
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.getElementById('toggle-toc-btn');
-            const tocContainer = document.getElementById('toc-container');
-
-            // Set initial state of TOC to hidden and button text
-            // Removed classList.add('hidden') here as it's now handled by inline style
-            toggleBtn.textContent = 'إظهار الفهرس';
-
-            toggleBtn.addEventListener('click', function() {
-                if (tocContainer.style.display === 'none') {
-                    tocContainer.style.display = 'block'; // Show the TOC
-                    toggleBtn.textContent = 'إخفاء الفهرس';
-                } else {
-                    tocContainer.style.display = 'none'; // Hide the TOC
-                    toggleBtn.textContent = 'إظهار الفهرس';
-                }
-            });
-        });
-    </script>
 </body>
 </html>
